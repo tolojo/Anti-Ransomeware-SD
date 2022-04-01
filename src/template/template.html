@@ -7,25 +7,14 @@
          
          <title>Welcome {{.Sale}}</title>
 
-         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-		<script type="text/javascript">
-			$(document).ready(function() {
-				$(".criarSHA256").on('click', function() {
-					$.ajax({
-						url: "http://localhost:9000/save",
-						method: "GET",
-						success: function(data) {
-							$("#response").html(data);
-						},
-					});
-				});
-			});
-		</script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="/static/javascripts/template.js"></script>
+
 
    </head>
    <body>
       <div class="welcome center">Last day {{.Sale}}, {{.Time}}</div>
-      <button class = "criarSHA256" type="button">Criar SHA-256</button>
+      <button class = "criarSHA256" type="button" onclick="saveSha256()">Criar SHA-256</button>
    </body>
 </html>
 © 2022 GitHub, Inc.

@@ -16,7 +16,12 @@ func Sha256conv(s string) int {
 		log.Fatal(err)
 	}
 
-	defer f.Close()
+	defer func(f *os.File) {
+		err := f.Close()
+		if err != nil {
+
+		}
+	}(f)
 	//criar uma nova hash e atribui-la ao ficheiro f
 	h := sha256.New()
 	if _, err := io.Copy(h, f); err != nil {

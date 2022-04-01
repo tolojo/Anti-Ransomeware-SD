@@ -17,8 +17,7 @@ type Welcome struct {
 func main() {
 	welcome := Welcome{"ola", time.Now().Format(time.Stamp)}
 	template := template.Must(template.ParseFiles("template/template.html"))
-	sha256text := util.Sha256conv("ola.txt")
-	fmt.Println(sha256text)
+
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if sale := r.FormValue("sale"); sale != "" {
@@ -34,6 +33,7 @@ func main() {
 		fmt.Println(sha256text)
 		fmt.Println(w, "You called me!")
 	})
+
 	fmt.Println(http.ListenAndServe(":8000", nil))
 
 }
