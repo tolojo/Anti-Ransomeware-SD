@@ -17,6 +17,8 @@ type Welcome struct {
 func main() {
 	welcome := Welcome{"ola", time.Now().Format(time.Stamp)}
 	template := template.Must(template.ParseFiles("template/template.html"))
+	comparison := util.Sha256Comparison("ola.txt")
+	fmt.Println(comparison)
 
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
