@@ -36,6 +36,6 @@ func main() {
 		fmt.Println(w, "You called me!")
 	})
 
-	fmt.Println(http.ListenAndServe(":8000", nil))
+	fmt.Println(http.ListenAndServe(":80", nil))
 
 }
