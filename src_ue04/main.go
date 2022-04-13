@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"net/http"
+
+	"util/packages/util"
 )
 
 type Welcome struct {
@@ -12,10 +14,10 @@ type Welcome struct {
 
 func main() {
 
-	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
-
-	file := util.multiPartUpload("ola.txt")
-	http.Post("/files", "byte", file)
+	http.HandleFunc("/save", func(w http.ResponseWriter, r *http.Request) {
+		file := util.MultiPartUpload("ola.txt")
+		http.Post("/", "MIME", file)
+	})
 
 	fmt.Println(http.ListenAndServe(":80", nil))
 

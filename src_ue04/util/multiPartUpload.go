@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 )
 
-func multiPartUpload(fname string) *bytes.Buffer {
+func MultiPartUpload(fname string) *bytes.Buffer {
 	fileDir, _ := os.Getwd()
 	fileName := fname
 	filePath := path.Join(fileDir, fileName)
