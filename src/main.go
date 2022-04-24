@@ -31,11 +31,14 @@ func main() {
 	})
 
 	http.HandleFunc("/save", func(w http.ResponseWriter, r *http.Request) {
-		sha256text := util.Sha256conv("ola.txt")
+		sha256text := util.Sha256conv("abc.txt")
 		fmt.Println(sha256text)
-		fmt.Println(w, "You called me!")
 	})
 
-	fmt.Println(http.ListenAndServe(":80", nil))
+	http.HandleFunc("/receive", func(w http.ResponseWriter, r *http.Request) {
+
+	})
+
+	fmt.Println(http.ListenAndServe(":8000", nil))
 
 }
