@@ -11,7 +11,7 @@ import (
 
 func Sha256conv(s string) int {
 	//abrir o ficheiro s e passa-lo para a variavel f
-	f, err := os.Open(s)
+	f, err := os.Open("securityCopy/" + s)
 	if err != nil {
 		log.Fatal(err)
 	}

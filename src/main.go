@@ -9,6 +9,8 @@ import (
 	"log"
 	"net/http"
 	"os"
+
+	"example.com/packages/util"
 )
 
 type FileName struct {
@@ -49,8 +51,8 @@ func main() {
 
 		data.download()
 
-		//sha256text := util.Sha256conv("abc.txt")
-		//fmt.Println(sha256text)
+		sha256text := util.Sha256conv(fileResponse.Name)
+		fmt.Println(sha256text)
 	})
 
 	http.HandleFunc("/receive", func(w http.ResponseWriter, r *http.Request) {
