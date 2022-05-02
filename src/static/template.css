@@ -5,15 +5,18 @@ body {
     background-size: cover;
 }
 
-.welcome {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 2rem;
-    color:lightgreen;
+
+
+#nome{
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    border: 3px solid green;
+    padding: 10px;
 }
 
-.center {
-    height: 100vh;
-     display: flex;
-     justify-content: center;
-     align-items: center
+div{
+    display: flex;
+    justify-content: center;
+    margin: auto;
 }

@@ -1,13 +1,14 @@
-async function saveSha256() {
+async function saveFile() {
     try {
-        let abc = await $.ajax({
-            url: '/save',
-            method: "get",
-            dataType: "json"
+        let response = await $.ajax({
+            contentType: 'application/json',
+            url:`/save`,
+            method: "POST",
+            data: JSON.stringify({"name":document.getElementById("nome").value}),
+            dataType: "json",
+
         })
     } catch (e) {
         console.log(e)
     }
-
-    alert("Botão carregado");
 }

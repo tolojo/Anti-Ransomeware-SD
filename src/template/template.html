@@ -3,19 +3,12 @@
    <head>
          <meta charset="UTF-8">
          <link rel="stylesheet" href="/static/template.css">
-
-         
-         <title>Welcome {{.Sale}}</title>
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script src="/static/javascripts/template.js"></script>
-
-
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+       <script src="/static/javascripts/template.js"></script>
+       <title>Anti-Ransomware</title>
    </head>
    <body>
-      <div class="welcome center">Last day {{.Sale}}, {{.Time}}</div>
-      <button class = "criarSHA256" type="button" onclick="saveSha256()">Criar SHA-256</button>
+      <input type="text" id="nome" placeholder="Nome do ficheiro">
+      <button class = "Save" type="button" onclick="saveFile()">Save</button>
    </body>
 </html>
-© 2022 GitHub, Inc.
-Terms
