@@ -33,6 +33,6 @@ func Sha256conv(s string) int {
 	//criar ficheiro com o nome "hash_" + nome do parametro s
 	a := os.WriteFile("hash/hash_"+s, []byte(xa), 0755)
 
-	fmt.Printf("Ficheiro escrito com %v bytes", a)
+	fmt.Printf("Ficheiro escrito com %+v bytes", a)
 	return 0
 }

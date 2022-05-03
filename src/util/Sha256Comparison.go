@@ -11,8 +11,9 @@ import (
 )
 
 func Sha256Comparison(s string) bool {
+	var securityDirectory = "temp/"
 	//abrir o ficheiro s e passa-lo para a variavel f
-	f, err := os.Open(s)
+	f, err := os.Open(securityDirectory + s)
 	if err != nil {
 		log.Fatal(err)
 	}
