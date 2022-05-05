@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 )
 
 const uploadPath = "./files"
@@ -35,7 +36,7 @@ func uploadFile(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("file size: %+v\n", handler.Size)
 	fmt.Printf("MIME header: %+v\n", handler.Header)
 
-	tempFile, err := ioutil.TempFile("files", "upload-*.txt")
+	tempFile, err := os.Create("files/" + handler.Filename)
 	if err != nil {
 		fmt.Println(err)
 		return
