@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"crypto/sha256"
 	"encoding/hex"
-	"fmt"
 	"io"
 	"log"
 	"os"
@@ -33,7 +32,6 @@ func Sha256Comparison(s string) bool {
 
 	//Passar a hash para string e guardar na variavel xa
 	xa := hex.EncodeToString(h.Sum(nil))
-	fmt.Println(xa)
 
 	file, err := os.Open("hash/hash_" + s)
 	if err != nil {
@@ -56,7 +54,6 @@ func Sha256Comparison(s string) bool {
 	for _, eachLn := range text {
 		if eachLn != "" {
 			newXa = eachLn
-			fmt.Println(eachLn)
 		}
 	}
 

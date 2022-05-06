@@ -1,6 +1,7 @@
 package main
 
 import (
+	bytes2 "bytes"
 	"encoding/json"
 	"errors"
 	"example.com/packages/util"
@@ -9,6 +10,7 @@ import (
 	"io"
 	"io/ioutil"
 	"log"
+	"mime/multipart"
 	"net/http"
 	"os"
 	"time"
@@ -29,6 +31,8 @@ type Data struct {
 }
 
 func main() {
+	ipServerPub := "http://10.72.203.191"
+
 	welcome := Welcome{"ola", time.Now().Format(time.Stamp)}
 	template := template.Must(template.ParseFiles("template/template.html"))
 
@@ -60,10 +64,10 @@ func main() {
 
 		data := &Data{
 			fileName: fileResponse.Name,
-			URL:      "http://10.72.182.207/files/" + fileResponse.Name,
+			URL:      ipServerPub + "/files/" + fileResponse.Name,
 		}
 
-		data.download("securityCopy/")
+		log.Printf("%+v", data.download("securityCopy/"))
 
 		sha256text := util.Sha256conv(fileResponse.Name)
 		fmt.Println(sha256text)
@@ -76,7 +80,7 @@ func main() {
 		}
 
 		response.Body.Close()
-		fmt.Println(string(bytes))
+		log.Println(string(bytes))
 		var fileResponse FileName
 		errUnmarshal := json.Unmarshal(bytes, &fileResponse)
 
@@ -87,17 +91,40 @@ func main() {
 
 		data := &Data{
 			fileName: fileResponse.Name,
-			URL:      "http://10.72.182.207/files/" + fileResponse.Name,
+			URL:      ipServerPub + "/files/" + fileResponse.Name,
 		}
 
 		data.download("temp/")
 
 		comparison := util.Sha256Comparison(fileResponse.Name)
-		fmt.Println(comparison)
+		log.Printf("%+v", comparison)
 		e := os.Remove("temp/" + fileResponse.Name)
 		if e != nil {
-
 		}
+		if comparison == false {
+			body := &bytes2.Buffer{}
+			writer := multipart.NewWriter(body)
+			fw, err := writer.CreateFormFile("myFile", fileResponse.Name)
+			if err != nil {
+				log.Fatal(err)
+			}
+
+			myFile, err := os.Open("securityCopy/" + fileResponse.Name)
+			if err != nil {
+				log.Fatal(err)
+			}
+			_, err = io.Copy(fw, myFile)
+			writer.Close()
+
+			req, err := http.NewRequest("POST", ipServerPub+"/upload", bytes2.NewReader(body.Bytes()))
+			req.Header.Set("Content-Type", writer.FormDataContentType())
+			client := &http.Client{}
+			rsp, _ := client.Do(req)
+			if rsp.StatusCode != http.StatusOK {
+				log.Printf("Request Failed with response: %d", rsp.StatusCode)
+			}
+		}
+
 	})
 
 	fmt.Println(http.ListenAndServe(":8000", nil))
@@ -105,6 +132,7 @@ func main() {
 }
 
 func (data *Data) download(Dir string) error {
+	fmt.Println("abc")
 	response, err := http.Get(data.URL)
 	if err != nil {
 		return err
