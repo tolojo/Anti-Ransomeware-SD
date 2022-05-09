@@ -17,7 +17,7 @@ func main() {
 	http.Handle("/files/", http.StripPrefix("/files", fs))
 
 	log.Print("Server started on localhost:8080, use /upload for uploading files and /files/{fileName} for downloading")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServeTLS(":8443", "cert.pem", "key.pem", nil))
 }
 
 func uploadFile(w http.ResponseWriter, r *http.Request) {

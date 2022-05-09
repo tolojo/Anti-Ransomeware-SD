@@ -1,22 +1,24 @@
 body {
-    min-height: 150%;
+    display: flex;
     background-image: url("/static/imagem.webp");
     background-blend-mode:  overlay;
     background-size: cover;
 }
 
-
-
-#nome{
-    position: absolute;
-    top: 50%;
-    width: 100%;
-    border: 3px solid green;
-    padding: 10px;
-}
-
 div{
     display: flex;
-    justify-content: center;
-    margin: auto;
+    justify-content: space-between;
+    margin: 25% auto;
+    width: 50%;
+}
+
+input[type=text]{
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 12px 20px;
+}
+
+button{
+    margin-left: 10px;
 }

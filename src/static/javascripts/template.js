@@ -6,7 +6,20 @@ async function saveFile() {
             method: "POST",
             data: JSON.stringify({"name":document.getElementById("nome").value}),
             dataType: "json",
+        })
+    } catch (e) {
+        console.log(e)
+    }
+}
 
+async function compareFile() {
+    try {
+        let response = await $.ajax({
+            contentType: 'application/json',
+            url:`/validate`,
+            method: "POST",
+            data: JSON.stringify({"name":document.getElementById("nome").value}),
+            dataType: "json",
         })
     } catch (e) {
         console.log(e)

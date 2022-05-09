@@ -31,7 +31,7 @@ type Data struct {
 }
 
 func main() {
-	ipServerPub := "http://10.72.203.191"
+	ipServerPub := "https://10.72.215.154"
 
 	welcome := Welcome{"ola", time.Now().Format(time.Stamp)}
 	template := template.Must(template.ParseFiles("template/template.html"))
