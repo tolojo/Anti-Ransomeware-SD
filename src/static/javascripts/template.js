@@ -7,6 +7,9 @@ async function saveFile() {
             data: JSON.stringify({"name":document.getElementById("nome").value}),
             dataType: "json",
         })
+        if (response.status=200){
+            alert("Guardado");
+        }
     } catch (e) {
         console.log(e)
     }

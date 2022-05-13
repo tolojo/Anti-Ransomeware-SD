@@ -2,6 +2,7 @@ package main
 
 import (
 	bytes2 "bytes"
+	"crypto/tls"
 	"encoding/json"
 	"errors"
 	"example.com/packages/util"
@@ -31,8 +32,8 @@ type Data struct {
 }
 
 func main() {
-	ipServerPub := "https://10.72.215.154"
-
+	ipServerPub := "https://10.72.231.72:8443"
+	http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
 	welcome := Welcome{"ola", time.Now().Format(time.Stamp)}
 	template := template.Must(template.ParseFiles("template/template.html"))
 
@@ -71,6 +72,7 @@ func main() {
 
 		sha256text := util.Sha256conv(fileResponse.Name)
 		fmt.Println(sha256text)
+		w.WriteHeader(http.StatusOK)
 	})
 
 	http.HandleFunc("/validate", func(w http.ResponseWriter, response *http.Request) {
