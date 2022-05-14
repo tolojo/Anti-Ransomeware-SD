@@ -14,4 +14,4 @@ For this project we will use the following set-up,
 | **UE04** | Run the Nginx service, using the Nginx Load-Balancer service | Nginx1.18>= | Ubuntu 20.04 | It's prefered to use 2gb of ram during the instalation, but later u can downgrade it to 1gb of ram, since its enough to run the necessary application | Minimum 10gb |
 
 After installing a the Ubuntu ISO file, you can create a VM in the virtualization software of your choice, with the settings referred above. You only need to do this once, since you can create linked clones from the first Vm created.
-<img src="Clone1.png" width ="auto" height="600"/>
+<img src="Clone1.png" width ="auto" height="400"/>
