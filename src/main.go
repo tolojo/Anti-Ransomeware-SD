@@ -5,7 +5,6 @@ import (
 	"crypto/tls"
 	"encoding/json"
 	"errors"
-	"example.com/packages/util"
 	"fmt"
 	"html/template"
 	"io"
@@ -15,6 +14,8 @@ import (
 	"net/http"
 	"os"
 	"time"
+
+	"example.com/packages/util"
 )
 
 type FileName struct {
@@ -32,7 +33,8 @@ type Data struct {
 }
 
 func main() {
-	ipServerPub := "https://10.72.231.72:8443"
+	ipServerPub := "https://10.72.251.147:8443"
+	ipServerSecure := "https://10.72.251.188:8443"
 	http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
 	welcome := Welcome{"ola", time.Now().Format(time.Stamp)}
 	template := template.Must(template.ParseFiles("template/template.html"))
@@ -54,7 +56,7 @@ func main() {
 		}
 
 		response.Body.Close()
-		fmt.Println(string(bytes))
+		log.Println(string(bytes))
 		var fileResponse FileName
 		errUnmarshal := json.Unmarshal(bytes, &fileResponse)
 
@@ -71,8 +73,14 @@ func main() {
 		log.Printf("%+v", data.download("securityCopy/"))
 
 		sha256text := util.Sha256conv(fileResponse.Name)
-		fmt.Println(sha256text)
+		log.Println(sha256text)
 		w.WriteHeader(http.StatusOK)
+		requestBody, err := json.Marshal(map[string]string{"name": data.fileName})
+		serverResp, err := http.Post(ipServerSecure+"/save", "application/json", bytes2.NewBuffer(requestBody))
+		if err != nil {
+			log.Print(err)
+		}
+		log.Print(serverResp)
 	})
 
 	http.HandleFunc("/validate", func(w http.ResponseWriter, response *http.Request) {
@@ -103,7 +111,7 @@ func main() {
 		e := os.Remove("temp/" + fileResponse.Name)
 		if e != nil {
 		}
-		if comparison == false {
+		if !comparison {
 			body := &bytes2.Buffer{}
 			writer := multipart.NewWriter(body)
 			fw, err := writer.CreateFormFile("myFile", fileResponse.Name)
@@ -129,7 +137,7 @@ func main() {
 
 	})
 
-	fmt.Println(http.ListenAndServe(":8000", nil))
+	fmt.Println(http.ListenAndServeTLS(":8443", "cert.pem", "key.pem", nil))
 
 }
 

@@ -15,3 +15,20 @@ For this project we will use the following set-up,
 
 After installing a the Ubuntu ISO file, you can create a VM in the virtualization software of your choice, with the settings referred above. You only need to do this once, since you can create linked clones from the first Vm created.
 <img src="Clone1.png" width ="auto" height="400"/>
+
+On 2 of the machines, you will need to install the Golang and git package, and to do so, just run:
+```
+sudo apt install golang git
+```
+
+This will install the latest version of the Go programming language version, ad the latest version of git.
+After installing the Golang, you will need to clone the repository of the project, using:
+```
+git clone https://github.com/tolojo/Anti-Ransomware-SD
+```
+
+After cloning the repository, you will need to go inside the cloned repository directory with the following command:
+```
+cd Anti-Ransomware-SD/src
+```
+

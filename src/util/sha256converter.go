@@ -30,6 +30,7 @@ func Sha256conv(s string) int {
 
 	//Passar a hash para string e guardar na variavel xa
 	xa := hex.EncodeToString(h.Sum(nil))
+	log.Print(xa)
 	//criar ficheiro com o nome "hash_" + nome do parametro s
 	a := os.WriteFile("hash/hash_"+s, []byte(xa), 0755)
 
