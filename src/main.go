@@ -37,7 +37,7 @@ func main() {
 	ipServerSecure := "https://10.72.251.188:8443"
 	http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
 	welcome := Welcome{"ola", time.Now().Format(time.Stamp)}
-	template := template.Must(template.ParseFiles("template/login.html"))
+	template := template.Must(template.ParseFiles("template/login.html", "template/template.html"))
 
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
@@ -48,6 +48,13 @@ func main() {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 	})
+
+	http.HandleFunc("/SD", func(w http.ResponseWriter, r *http.Request) {
+		if err := template.ExecuteTemplate(w, "template.html", welcome); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+	})
+
 	http.HandleFunc("/save", func(w http.ResponseWriter, response *http.Request) {
 
 		bytes, err := ioutil.ReadAll(response.Body)
