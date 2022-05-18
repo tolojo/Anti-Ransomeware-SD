@@ -56,11 +56,7 @@ func Sha256Comparison(s string) bool {
 			newXa = eachLn
 		}
 	}
-<<<<<<< HEAD
 	log.Print(xa)
-=======
-	log.Printf(xa)
->>>>>>> main
 	log.Print(newXa)
 
 	return xa == newXa

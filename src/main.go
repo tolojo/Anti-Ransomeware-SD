@@ -37,14 +37,14 @@ func main() {
 	ipServerSecure := "https://10.72.251.188:8443"
 	http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
 	welcome := Welcome{"ola", time.Now().Format(time.Stamp)}
-	template := template.Must(template.ParseFiles("template/template.html"))
+	template := template.Must(template.ParseFiles("template/login.html"))
 
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if sale := r.FormValue("sale"); sale != "" {
 			welcome.Sale = sale
 		}
-		if err := template.ExecuteTemplate(w, "template.html", welcome); err != nil {
+		if err := template.ExecuteTemplate(w, "login.html", welcome); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 	})
