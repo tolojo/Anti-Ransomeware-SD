@@ -64,7 +64,9 @@ sudo vim /etc/nginx/conf.d/example.conf
 ```
 
 And write the file like this:
+
 <img src="nginxconf.png" width ="auto" height="400"/>
+
 And change the IP's on the upstream servers to match the UE01 and UE02 IP's
 To create the key and certificate to run the server on https, just create a directory on nginx using this command:
 ```
