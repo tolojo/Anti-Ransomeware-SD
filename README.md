@@ -83,4 +83,4 @@ Run "sudo nginx -t" to test if the file is correctly set-up and run the followin
 sudo service nginx restart
 ```
  
-If everything went right you should see the go application template HTML pop-up when u type the UE04 machine IP on the browser.
+If everything went right you should see the go application template HTML pop-up when you type the UE04 machine IP on the browser.
