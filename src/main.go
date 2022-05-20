@@ -35,6 +35,8 @@ type Data struct {
 func main() {
 	ipServerPub := "https://10.72.251.147:8443"
 	ipServerSecure := "https://10.72.251.188:8443"
+
+	fs := http.FileServer(http.Dir("./securityCopy"))
 	http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
 	welcome := Welcome{"ola", time.Now().Format(time.Stamp)}
 	template := template.Must(template.ParseFiles("template/login.html", "template/template.html"))
@@ -48,6 +50,7 @@ func main() {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 	})
+	http.Handle("/files/", http.StripPrefix("/files", fs))
 
 	http.HandleFunc("/SD", func(w http.ResponseWriter, r *http.Request) {
 		if err := template.ExecuteTemplate(w, "template.html", welcome); err != nil {
@@ -141,6 +144,36 @@ func main() {
 				log.Printf("Request Failed with response: %d", rsp.StatusCode)
 			}
 		}
+
+	})
+
+	http.HandleFunc("/retrieve", func(w http.ResponseWriter, response *http.Request) {
+
+		bytes, err := ioutil.ReadAll(response.Body)
+		if err != nil {
+			log.Fatalln(err)
+		}
+
+		response.Body.Close()
+		log.Println(string(bytes))
+		var fileResponse FileName
+		errUnmarshal := json.Unmarshal(bytes, &fileResponse)
+
+		if errUnmarshal != nil {
+			log.Fatal(errUnmarshal)
+		}
+		log.Printf("%+v", fileResponse)
+
+		data := &Data{
+			fileName: fileResponse.Name,
+			URL:      ipServerSecure + "/files/" + fileResponse.Name,
+		}
+
+		log.Printf("%+v", data.download("securityCopy/"))
+
+		sha256text := util.Sha256conv(fileResponse.Name)
+		log.Println(sha256text)
+		w.WriteHeader(http.StatusOK)
 
 	})
 

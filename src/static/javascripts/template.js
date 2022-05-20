@@ -28,3 +28,17 @@ async function compareFile() {
         console.log(e)
     }
 }
+
+
+async function retrieveFile() {
+    try {
+        let response = await $.ajax({
+            contentType: 'application/json',
+            url:`/files`+document.getElementById("nome").value,
+            method: "POST",
+            dataType: "json",
+        })
+    } catch (e) {
+        console.log(e)
+    }
+}
