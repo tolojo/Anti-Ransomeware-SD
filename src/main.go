@@ -34,7 +34,7 @@ type Data struct {
 
 func main() {
 	ipServerPub := "https://10.72.251.147:8443"
-	ipServerSecure := "https://10.72.251.188:8443"
+	ipServerSecure := "https://192.168.1.119:8443"
 
 	fs := http.FileServer(http.Dir("./securityCopy"))
 	http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}

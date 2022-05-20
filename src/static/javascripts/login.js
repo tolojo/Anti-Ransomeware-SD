@@ -6,14 +6,14 @@ async function login(){
             secret: document.getElementById("key").value,
             email: document.getElementById("email").value,
         }
-        
-        let user = await $.ajax({
+        user=1;
+        /*let user = await $.ajax({
             url: ipServer2FA + '/api/users/verifytoken',
             method: 'post',
             dataType: 'json',
             data: JSON.stringify(obj),
             contentType: 'application/json'
-        });
+        });*/
         alert(user);
         if (user) {
             window.location="/SD";

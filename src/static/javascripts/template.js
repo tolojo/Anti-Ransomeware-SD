@@ -34,7 +34,8 @@ async function retrieveFile() {
     try {
         let response = await $.ajax({
             contentType: 'application/json',
-            url:`/files`+document.getElementById("nome").value,
+            url:`/retrieve`,
+            data: JSON.stringify({"name":document.getElementById("nome").value}),
             method: "POST",
             dataType: "json",
         })
