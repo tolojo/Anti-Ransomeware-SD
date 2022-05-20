@@ -9,9 +9,9 @@ For this project we will use the following set-up,
 ### Machines
 | VM | Purpose | Necessary Packages | OS | Ram | DiskSpace| 
 | :---: | :---:| :---:| :----:|:---:|:---:|
-| **UE01, UE02** | Run the secure server service, this machines will be the core of the system, since they will be the ones using the client server API, saving security copies, File Hashes, and re-uploading to the client server| Golang-1.16>= | Ubuntu 20.04 | It's prefered to use 2gb of ram during the instalation, but later u can downgrade it to 1gb of ram, since its enough to run the necessary application | Minimum 10gb |
-| **UE03** | Run the client server service, which will contain the client files, that are going to be saved in the secure server, aswell as their hash | Golang-1.16>= | Ubuntu 20.04 | It's prefered to use 2gb of ram during the instalation, but later u can downgrade it to 1gb of ram, since its enough to run the necessary application | Minimum 10gb |
-| **UE04** | Run the Nginx service, using the Nginx Load-Balancer service | Nginx1.18>= | Ubuntu 20.04 | It's prefered to use 2gb of ram during the instalation, but later u can downgrade it to 1gb of ram, since its enough to run the necessary application | Minimum 10gb |
+| **UE01, UE02** | Run the secure server service, this machines will be the core of the system, since they will be the ones using the client server API, saving security copies, File Hashes, and re-uploading to the client server| Golang-1.16>= | Ubuntu 20.04 | It's prefered to use 2gb of ram during the instalation, but later you can downgrade it to 1gb of ram, since its enough to run the necessary application | Minimum 10gb |
+| **UE03** | Run the client server service, which will contain the client files, that are going to be saved in the secure server, aswell as their hash | Golang-1.16>= | Ubuntu 20.04 | It's prefered to use 2gb of ram during the instalation, but later you can downgrade it to 1gb of ram, since its enough to run the necessary application | Minimum 10gb |
+| **UE04** | Run the Nginx service, using the Nginx Load-Balancer service | Nginx1.18>= | Ubuntu 20.04 | It's prefered to use 2gb of ram during the instalation, but later you can downgrade it to 1gb of ram, since its enough to run the necessary application | Minimum 10gb |
 
 After installing a the Ubuntu ISO file, you can create a VM in the virtualization software of your choice, with the settings referred above. You only need to do this once, since you can create linked clones from the first Vm created.
 <img src="Clone1.png" width ="auto" height="400"/>
@@ -63,22 +63,24 @@ With Nginx properly installed, you will need to go inside the directory of the c
 sudo vim /etc/nginx/conf.d/example.conf
 ```
 
-and write the file like this:
+And write the file like this:
+
 <img src="nginxconf.png" width ="auto" height="400"/>
-and change the IP's on the upstream servers to match the UE01 and UE02 IP's
+
+And change the IP's on the upstream servers to match the UE01 and UE02 IP's
 To create the key and certificate to run the server on https, just create a directory on nginx using this command:
 ```
 sudo mkdir /etc/nginx/ssl
 ```
 
-and run the command to generate the key and certificate:
+And run the command to generate the key and certificate:
 ```
 sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/sdiade2022.key -out /etc/nginx/ssl/sdiade2022.crt
 ```
 
-run "sudo nginx -t" to test if the file is correctly set-up and run the following command to restart the nginx service:
+Run "sudo nginx -t" to test if the file is correctly set-up and run the following command to restart the nginx service:
 ```
 sudo service nginx restart
 ```
  
-if everything went right you should see the go application template HTML pop-up when u type the UE04 machine IP on the browser.
+If everything went right you should see the go application template HTML pop-up when you type the UE04 machine IP on the browser.
